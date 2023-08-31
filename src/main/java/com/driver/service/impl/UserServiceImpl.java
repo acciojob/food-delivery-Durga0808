@@ -16,9 +16,10 @@ public class UserServiceImpl implements UserService {
     public UserDto createUser(UserDto user) throws Exception {
         UserEntity userEntity=userRepository.findById(user.getId()).get();
         if(userEntity!=null){
-            throw new Exception("User alredy Exist");
+            throw new Exception("User Already Exist");
         }
         UserEntity userEntity1= UserEntity.builder()
+                .id(user.getId())
                 .userId(user.getUserId())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
@@ -34,6 +35,7 @@ public class UserServiceImpl implements UserService {
             throw new Exception("User doesn't exist");
         }
         UserDto userDto= UserDto.builder()
+                .id(userEntity.getId())
                 .email(email)
                 .userId(userEntity.getUserId())
                 .firstName(userEntity.getFirstName())
@@ -41,11 +43,7 @@ public class UserServiceImpl implements UserService {
         return userDto;
     }
 
-    /**
-     * @param userId
-     * @return
-     * @throws Exception
-     */
+
     @Override
     public UserDto getUserByUserId(String userId) throws Exception {
 
@@ -54,6 +52,7 @@ public class UserServiceImpl implements UserService {
             throw new Exception("User doesn't exist");
         }
         UserDto userDto= UserDto.builder()
+                .id(userEntity.getId())
                 .email(userEntity.getEmail())
                 .userId(userId)
                 .firstName(userEntity.getFirstName())
@@ -68,6 +67,7 @@ public class UserServiceImpl implements UserService {
             throw new Exception("User doesn't exist");
         }
         UserEntity userEntity1= UserEntity.builder()
+                .id(user.getId())
                 .userId(userId)
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
         if(userEntity==null){
             throw new Exception("User doesn't exist");
         }
-        userRepository.delete(userEntity);
+        userRepository.deleteById(userEntity.getId());
     }
 
     @Override
@@ -92,6 +92,7 @@ public class UserServiceImpl implements UserService {
         List<UserEntity>userEntities= (List<UserEntity>) userRepository.findAll();
         for(UserEntity userEntity:userEntities){
             UserDto userDto= UserDto.builder()
+                    .id(userEntity.getId())
                     .userId(userEntity.getUserId())
                     .firstName(userEntity.getFirstName())
                     .lastName(userEntity.getLastName())

@@ -27,7 +27,7 @@ public class UserController {
 	public UserResponse getUser(@PathVariable String id) throws Exception{
 		UserDto userDto=userService.getUserByUserId(id);
 		if(userDto==null){
-			throw new Exception("User doesn't exist");
+			throw new Exception("User not found");
 		}
 		UserResponse userResponse= UserResponse.builder()
 				.userId(id)
@@ -46,7 +46,7 @@ public class UserController {
 		try{
 			userService.createUser(userDto);
 		}catch (Exception e){
-			throw new Exception("User doesn't exist");
+			throw new Exception("User Already Exist");
 		}
 		UserResponse userResponse= UserResponse.builder()
 				.firstName(userDetails.getFirstName())
@@ -65,7 +65,7 @@ public class UserController {
 		try{
 			userService.updateUser(id,userDto);
 		}catch (Exception e){
-			throw new Exception("User doesn't exsit");
+			throw new Exception("User can't be updated");
 		}
 
 		UserResponse userResponse= UserResponse.builder()

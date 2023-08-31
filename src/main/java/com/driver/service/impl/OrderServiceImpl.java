@@ -61,9 +61,9 @@ public class OrderServiceImpl implements OrderService {
     public void deleteOrder(String orderId) throws Exception {
         OrderEntity orderEntity=orderRepository.findByOrderId(orderId);
         if(orderEntity==null){
-            throw new Exception("Order doesn't exist");
+            throw new Exception("No Order with given order Id exist");
         }
-        orderRepository.delete(orderEntity);
+        orderRepository.deleteById(orderEntity.getId());
     }
 
     @Override

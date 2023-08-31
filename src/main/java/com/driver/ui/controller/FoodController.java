@@ -78,7 +78,7 @@ public class FoodController {
 		try{
 			foodService.deleteFoodItem(id);
 		}catch (Exception e){
-			throw new Exception("Food doesn't exist");
+			throw new Exception("No food exists with given id");
 		}
 
 		return new OperationStatusModel("SUCCESS","Delete Food");

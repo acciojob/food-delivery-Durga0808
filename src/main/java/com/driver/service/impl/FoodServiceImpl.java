@@ -47,7 +47,7 @@ public class FoodServiceImpl implements FoodService{
     @Override
     public FoodDto updateFoodDetails(String foodId, FoodDto foodDetails) throws Exception {
         if(foodRepository.findByFoodId(foodId)==null){
-            throw new Exception("No food exits with given food id");
+            throw new Exception("No food exists with given food id");
         }
         FoodEntity foodEntity= FoodEntity.builder()
                 .id(foodDetails.getId())
@@ -67,7 +67,7 @@ public class FoodServiceImpl implements FoodService{
         if(foodEntity==null){
             throw new Exception("Food doesn't exist");
         }
-        foodRepository.delete(foodEntity);
+        foodRepository.deleteById(foodEntity.getId());
 
     }
 

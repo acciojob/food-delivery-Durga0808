@@ -30,7 +30,7 @@ public class OrderController {
             throw new Exception("Order doesn't exist");
         }
         OrderDetailsResponse orderDetailsResponse= OrderDetailsResponse.builder()
-                .orderId(id)
+                .orderId(orderDto.getOrderId())
                 .cost(orderDto.getCost())
                 .items(orderDto.getItems())
                 .status(orderDto.isStatus())
@@ -56,7 +56,6 @@ public class OrderController {
 	@PutMapping(path="/{id}")
 	public OrderDetailsResponse updateOrder(@PathVariable String id, @RequestBody OrderDetailsRequestModel order) throws Exception{
 		OrderDto orderDto= OrderDto.builder()
-                .orderId(id)
                 .userId(order.getUserId())
                 .cost(order.getCost())
                 .items(order.getItems())
