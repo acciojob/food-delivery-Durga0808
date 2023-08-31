@@ -67,7 +67,7 @@ public class FoodServiceImpl implements FoodService{
         if(foodEntity==null){
             throw new Exception(id);
         }
-        foodRepository.deleteById(foodEntity.getId());
+        foodRepository.delete(foodEntity);
 
     }
 

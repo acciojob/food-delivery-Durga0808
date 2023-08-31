@@ -14,9 +14,9 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Override
     public UserDto createUser(UserDto user) throws Exception {
-        UserEntity userEntity=userRepository.findById(user.getId()).get();
+        UserEntity userEntity=userRepository.findByEmail(user.getEmail());
         if(userEntity!=null){
-            throw new Exception(user.getUserId());
+            throw new Exception("Record already exists!");
         }
         UserEntity userEntity1= UserEntity.builder()
                 .id(user.getId())
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
         if(userEntity==null){
             throw new Exception(userId);
         }
-        userRepository.deleteById(userEntity.getId());
+        userRepository.delete(userEntity);
     }
 
     @Override
