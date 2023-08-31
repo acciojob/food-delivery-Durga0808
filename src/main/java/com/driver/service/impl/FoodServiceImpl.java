@@ -30,7 +30,7 @@ public class FoodServiceImpl implements FoodService{
     public FoodDto getFoodById(String foodId) throws Exception {
         FoodEntity foodEntity=foodRepository.findByFoodId(foodId);
         if(foodEntity==null){
-            throw new Exception("No food is found with given foodId");
+            throw new Exception(foodId);
         }
         FoodDto foodDto=FoodDto.builder()
                 .id(foodEntity.getId())
@@ -47,7 +47,7 @@ public class FoodServiceImpl implements FoodService{
     @Override
     public FoodDto updateFoodDetails(String foodId, FoodDto foodDetails) throws Exception {
         if(foodRepository.findByFoodId(foodId)==null){
-            throw new Exception("No food exists with given food id");
+            throw new Exception(foodId);
         }
         FoodEntity foodEntity= FoodEntity.builder()
                 .id(foodDetails.getId())
@@ -65,7 +65,7 @@ public class FoodServiceImpl implements FoodService{
     public void deleteFoodItem(String id) throws Exception {
         FoodEntity foodEntity=foodRepository.findByFoodId(id);
         if(foodEntity==null){
-            throw new Exception("Food doesn't exist");
+            throw new Exception(id);
         }
         foodRepository.deleteById(foodEntity.getId());
 
@@ -86,6 +86,6 @@ public class FoodServiceImpl implements FoodService{
                     .build();
             foodDtoList.add(foodDto);
         }
-        return null;
+        return foodDtoList;
     }
 }

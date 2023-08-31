@@ -27,7 +27,7 @@ public class OrderController {
 	public OrderDetailsResponse getOrder(@PathVariable String id) throws Exception{
         OrderDto orderDto=orderService.getOrderById(id);
         if(orderDto==null){
-            throw new Exception("Order doesn't exist");
+            throw new Exception(id);
         }
         OrderDetailsResponse orderDetailsResponse= OrderDetailsResponse.builder()
                 .orderId(orderDto.getOrderId())
@@ -63,7 +63,7 @@ public class OrderController {
         try{
             orderService.updateOrderDetails(id,orderDto);
         }catch(Exception e){
-            throw new Exception("Order doesn't exist");
+            throw new Exception(id);
         }
 		return OrderDetailsResponse.builder()
                 .orderId(id)
@@ -77,7 +77,7 @@ public class OrderController {
 		try {
             orderService.deleteOrder(id);
         }catch (Exception e){
-            throw new Exception("Order doesn't exist");
+            throw new Exception(id);
         }
 		return new OperationStatusModel("SUCCESS","Delete Order");
 	}

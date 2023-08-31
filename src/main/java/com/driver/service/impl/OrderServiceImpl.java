@@ -27,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderDto getOrderById(String orderId) throws Exception {
         OrderEntity orderEntity=orderRepository.findByOrderId(orderId);
         if(orderEntity==null){
-            throw new Exception("Order doesn't exist");
+            throw new Exception(orderId);
         }
         return OrderDto.builder()
                 .id(orderEntity.getId())
@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderDto updateOrderDetails(String orderId, OrderDto order) throws Exception {
         OrderEntity orderEntity=orderRepository.findByOrderId(orderId);
         if(orderEntity==null){
-            throw new Exception("Order doesn't exist");
+            throw new Exception(orderId);
         }
         OrderEntity orderEntity1= OrderEntity.builder()
                 .id(order.getId())
@@ -61,7 +61,7 @@ public class OrderServiceImpl implements OrderService {
     public void deleteOrder(String orderId) throws Exception {
         OrderEntity orderEntity=orderRepository.findByOrderId(orderId);
         if(orderEntity==null){
-            throw new Exception("No Order with given order Id exist");
+            throw new Exception(orderId);
         }
         orderRepository.deleteById(orderEntity.getId());
     }

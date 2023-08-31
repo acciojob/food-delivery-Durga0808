@@ -28,7 +28,7 @@ public class FoodController {
 	public FoodDetailsResponse getFood(@PathVariable String id) throws Exception{
 		FoodDto foodDto=foodService.getFoodById(id);
 		if(foodDto==null){
-			throw new Exception("Food doesn't exit");
+			throw new Exception(id);
 		}
 		FoodDetailsResponse foodDetailsResponse= FoodDetailsResponse.builder()
 				.foodId(foodDto.getFoodId())
@@ -64,7 +64,7 @@ public class FoodController {
 		try{
 			foodService.updateFoodDetails(id,foodDto);
 		}catch(Exception e){
-			throw new Exception("Food doesn't exist");
+			throw new Exception(id);
 		}
 		return FoodDetailsResponse.builder()
 				.foodId(id)
@@ -78,7 +78,7 @@ public class FoodController {
 		try{
 			foodService.deleteFoodItem(id);
 		}catch (Exception e){
-			throw new Exception("No food exists with given id");
+			throw new Exception(id);
 		}
 
 		return new OperationStatusModel("SUCCESS","Delete Food");

@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
     public UserDto createUser(UserDto user) throws Exception {
         UserEntity userEntity=userRepository.findById(user.getId()).get();
         if(userEntity!=null){
-            throw new Exception("User Already Exist");
+            throw new Exception(user.getUserId());
         }
         UserEntity userEntity1= UserEntity.builder()
                 .id(user.getId())
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     public UserDto getUser(String email) throws Exception {
         UserEntity userEntity=userRepository.findByEmail(email);
         if(userEntity==null){
-            throw new Exception("User doesn't exist");
+            throw new Exception(email);
         }
         UserDto userDto= UserDto.builder()
                 .id(userEntity.getId())
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
         UserEntity userEntity=userRepository.findByUserId(userId);
         if(userEntity==null){
-            throw new Exception("User doesn't exist");
+            throw new Exception(userId);
         }
         UserDto userDto= UserDto.builder()
                 .id(userEntity.getId())
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
     public UserDto updateUser(String userId, UserDto user) throws Exception {
         UserEntity userEntity=userRepository.findByUserId(userId);
         if(userEntity==null){
-            throw new Exception("User doesn't exist");
+            throw new Exception(userId);
         }
         UserEntity userEntity1= UserEntity.builder()
                 .id(user.getId())
@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(String userId) throws Exception {
         UserEntity userEntity=userRepository.findByUserId(userId);
         if(userEntity==null){
-            throw new Exception("User doesn't exist");
+            throw new Exception(userId);
         }
         userRepository.deleteById(userEntity.getId());
     }
